@@ -1,0 +1,29 @@
+<h1><%= @workshop.new_record? ? "New Workshop" : "Edit Workshop" %></h1>
+
+<%= form_with(model: [:admin, @workshop], local: true) do |f| %>
+  <% if @workshop.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(@workshop.errors.count, "error") %> prohibited this workshop from being saved:</h2>
+      <ul>
+        <% @workshop.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :slug, "URL Slug (e.g. my-workshop)" %>
+    <%= f.text_field :slug %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit class: "btn" %>
+    <%= link_to "Cancel", admin_workshops_path, style: "margin-left: 10px;" %>
+  </div>
+<% end %>

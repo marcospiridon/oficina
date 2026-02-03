@@ -1,0 +1,50 @@
+<div class="card" style="text-align: center; background: none; box-shadow: none;">
+  <h1 style="color: var(--primary-color);"><%= t('vehicles.index.title') %></h1>
+  <p style="color: var(--text-secondary);"><%= t('vehicles.index.subtitle') %></p>
+</div>
+
+<div style="margin-bottom: 2rem;">
+  <%= link_to t('vehicles.index.register_new'), new_workshop_vehicle_path(workshop_slug: @workshop.slug), class: "btn btn-secondary", style: "text-align: center; border-style: dashed;" %>
+</div>
+
+<%= form_with(url: workshop_vehicles_path(workshop_slug: @workshop.slug), method: :get, local: true, class: "search-form") do |f| %>
+  <div class="search-container">
+    <%= f.text_field :query, value: params[:query], placeholder: "AA-00-00", style: "text-transform: uppercase; font-size: 1.2rem; text-align: center; letter-spacing: 2px;" %>
+    <%= f.submit "GO", class: "btn", style: "width: auto; padding: 0 1.5rem;" %>
+  </div>
+<% end %>
+
+<% if @vehicles.any? %>
+  <h3 style="margin-left: 0.5rem; margin-top: 2rem;"><%= t('vehicles.index.recent') %></h3>
+  <% @vehicles.each do |vehicle| %>
+    <%= link_to workshop_vehicle_path(workshop_slug: @workshop.slug, id: vehicle.id) do %>
+      <div class="card" style="display: flex; align-items: center; gap: 1rem;">
+        <% if vehicle.photos.attached? %>
+          <div style="width: 60px; height: 60px; flex-shrink: 0; border-radius: 8px; overflow: hidden; background: #eee;">
+            <%= image_tag vehicle.photos.first.variant(resize_to_limit: [100, 100]), style: "width: 100%; height: 100%; object-fit: cover;" %>
+          </div>
+        <% else %>
+          <div style="width: 60px; height: 60px; flex-shrink: 0; border-radius: 8px; background: #eee; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
+            🚗
+          </div>
+        <% end %>
+
+        <div style="flex: 1;">
+          <div style="font-weight: 700; font-size: 1.25rem;"><%= vehicle.license_plate %></div>
+          <div style="font-size: 0.875rem; color: var(--text-secondary);">
+            <%= vehicle.photos.count %> Photos • <%= vehicle.documents.count %> Docs
+          </div>
+        </div>
+        <div style="color: var(--text-secondary);">›</div>
+      </div>
+    <% end %>
+  <% end %>
+<% elsif params[:query].present? %>
+  <div class="card" style="text-align: center;">
+    <p><%= t('vehicles.index.no_found', query: params[:query].upcase).html_safe %></p>
+    <%= form_with(model: [ @workshop, Vehicle.new ], url: workshop_vehicles_path(workshop_slug: @workshop.slug), local: true) do |f| %>
+      <%= f.hidden_field :license_plate, value: params[:query] %>
+      <%= f.submit t('vehicles.index.create_new', query: params[:query].upcase), class: "btn" %>
+    <% end %>
+  </div>
+<% end %>

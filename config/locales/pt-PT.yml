@@ -1,0 +1,228 @@
+pt-PT:
+  hello: "Olá mundo"
+  date:
+    formats:
+      default: "%d/%m/%Y"
+      short: "%d %b"
+      long: "%d de %B de %Y"
+    day_names:
+      - Domingo
+      - Segunda-feira
+      - Terça-feira
+      - Quarta-feira
+      - Quinta-feira
+      - Sexta-feira
+      - Sábado
+    abbr_day_names:
+      - Dom
+      - Seg
+      - Ter
+      - Qua
+      - Qui
+      - Sex
+      - Sáb
+    month_names:
+      - ~
+      - Janeiro
+      - Fevereiro
+      - Março
+      - Abril
+      - Maio
+      - Junho
+      - Julho
+      - Agosto
+      - Setembro
+      - Outubro
+      - Novembro
+      - Dezembro
+    abbr_month_names:
+      - ~
+      - Jan
+      - Fev
+      - Mar
+      - Abr
+      - Mai
+      - Jun
+      - Jul
+      - Ago
+      - Set
+      - Out
+      - Nov
+      - Dez
+    order:
+      - :day
+      - :month
+      - :year
+  time:
+    formats:
+      default: "%d/%m/%Y %H:%M"
+      short: "%d %b %H:%M"
+      long: "%d de %B de %Y %H:%M"
+    am: "am"
+    pm: "pm"
+  datetime:
+    distance_in_words:
+      half_a_minute: "meio minuto"
+      less_than_x_seconds:
+        one: "menos de 1 segundo"
+        other: "menos de %{count} segundos"
+      x_seconds:
+        one: "1 segundo"
+        other: "%{count} segundos"
+      less_than_x_minutes:
+        one: "menos de um minuto"
+        other: "menos de %{count} minutos"
+      x_minutes:
+        one: "1 minuto"
+        other: "%{count} minutos"
+      about_x_hours:
+        one: "cerca de 1 hora"
+        other: "cerca de %{count} horas"
+      x_days:
+        one: "1 dia"
+        other: "%{count} dias"
+      about_x_months:
+        one: "cerca de 1 mês"
+        other: "cerca de %{count} meses"
+      x_months:
+        one: "1 mês"
+        other: "%{count} meses"
+      about_x_years:
+        one: "cerca de 1 ano"
+        other: "cerca de %{count} anos"
+      over_x_years:
+        one: "mais de 1 ano"
+        other: "mais de %{count} anos"
+      almost_x_years:
+        one: "quase 1 ano"
+        other: "quase %{count} anos"
+  number:
+    format:
+      separator: ","
+      delimiter: "."
+      precision: 3
+    currency:
+      format:
+        format: "%n %u"
+        unit: "€"
+        separator: ","
+        delimiter: "."
+        precision: 2
+    percentage:
+      format:
+        delimiter: "."
+    precision:
+      format:
+        delimiter: "."
+    human:
+      format:
+        delimiter: "."
+        precision: 3
+      storage_units:
+        format: "%n %u"
+        units:
+          byte: "B"
+          kb: "KB"
+          mb: "MB"
+          gb: "GB"
+          tb: "TB"
+  support:
+    array:
+      words_connector: ", "
+      two_words_connector: " e "
+      last_word_connector: " e "
+  helpers:
+    submit:
+      create: "Criar %{model}"
+      update: "Atualizar %{model}"
+      submit: "Enviar %{model}"
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      blank: "não pode estar em branco"
+      taken: "já está em uso"
+      invalid: "é inválido"
+      too_long: "é demasiado longo (máximo %{count} caracteres)"
+      too_short: "é demasiado curto (mínimo %{count} caracteres)"
+      confirmation: "não coincide com a confirmação"
+      empty: "não pode estar vazio"
+      inclusion: "não está incluído na lista"
+      exclusion: "está reservado"
+      not_a_number: "não é um número"
+      not_an_integer: "não é um número inteiro"
+      greater_than: "tem que ser maior que %{count}"
+      greater_than_or_equal_to: "tem que ser maior ou igual a %{count}"
+      equal_to: "tem que ser igual a %{count}"
+      less_than: "tem que ser menor que %{count}"
+      less_than_or_equal_to: "tem que ser menor ou igual a %{count}"
+      other_than: "tem que ser diferente de %{count}"
+      odd: "tem que ser ímpar"
+      even: "tem que ser par"
+
+  # App Specific
+  vehicles:
+    index:
+      title: "Pesquisa de Veículo"
+      subtitle: "Insira a matrícula para pesquisar ou criar."
+      register_new: "+ Registar Novo Veículo"
+      recent: "Veículos Recentes"
+      no_found: "Nenhum veículo encontrado com a matrícula %{query}."
+      create_new: "Criar Veículo %{query}"
+    show:
+      back: "← Voltar"
+      export_zip: "Exportar ZIP"
+      delete_vehicle: "Apagar Veículo"
+      confirm_delete: "Tem a certeza que deseja apagar este veículo?"
+      add_photos_docs: "Adicionar Fotos e Documentos"
+      tap_photo: "📷 Toque para Tirar Foto / Upload"
+      or_upload_docs: "Ou carregar documentos (PDF)"
+      delete_selected: "Apagar Selecionados"
+      confirm_delete_selected: "Tem a certeza que deseja apagar os itens selecionados?"
+      photos: "Fotos"
+      documents: "Documentos"
+      view: "Ver"
+    new:
+      back: "← Voltar"
+      title: "Registar Novo Veículo"
+      license_plate: "Matrícula"
+      initial_photo: "Foto Inicial (Opcional)"
+      take_photo: "📷 Tirar Foto"
+      create: "Criar Veículo"
+
+    # Controller Flashes
+    not_found: "Veículo não encontrado. Criar um novo?"
+    create:
+      success: "Veículo criado com sucesso."
+      error: "Não foi possível criar o veículo: %{errors}"
+    destroy:
+      success: "Veículo apagado com sucesso."
+    update:
+      success: "Guardado."
+    attachments:
+      deleted: "Anexo apagado."
+      not_found: "Anexo não encontrado ou acesso negado."
+      record_not_found: "Anexo não encontrado."
+      selected_deleted: "Anexos selecionados apagados."
+      none_selected: "Nenhum anexo selecionado."
+
+  # Layout
+  layout:
+    app_name: "Oficina App"
+    logout: "Sair"
+    notice: "Aviso"
+    alert: "Alerta"
+
+  # Devise basic
+  devise:
+    sessions:
+      signed_in: "Sessão iniciada com sucesso."
+      signed_out: "Sessão terminada com sucesso."
+      already_signed_out: "Sessão já terminada."
+    registrations:
+      signed_up: "Bem-vindo! Registou-se com sucesso."
+    failure:
+      unauthenticated: "Precisa de iniciar sessão ou registar-se antes de continuar."
+      invalid: "%{authentication_keys} ou palavra-passe inválidos."
+      not_found_in_database: "%{authentication_keys} ou palavra-passe inválidos."
+      last_attempt: "Tem mais uma tentativa antes de a sua conta ser bloqueada."
+      locked: "A sua conta está bloqueada."

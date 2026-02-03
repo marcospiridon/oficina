@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Admin - Oficina App</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <style>
+      body { font-family: system-ui, -apple-system, sans-serif; padding: 20px; background: #f4f4f9; }
+      header { background: #333; color: white; padding: 10px 20px; margin-bottom: 20px; border-radius: 8px; display: flex; justify_content: space-between; align-items: center; }
+      header a { color: white; text-decoration: none; margin-right: 15px; font-weight: bold; }
+      h1 { margin-top: 0; }
+      table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+      th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+      th { background-color: #eee; }
+      .btn { padding: 8px 12px; background: #007bff; color: white; text-decoration: none; border-radius: 4px; display: inline-block; }
+      .btn-danger { background: #dc3545; }
+      .actions { display: flex; gap: 10px; }
+      .form-group { margin-bottom: 15px; }
+      label { display: block; margin-bottom: 5px; font-weight: bold; }
+      input[type="text"], input[type="email"], input[type="password"], select { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+      .container { max-width: 1000px; margin: 0 auto; }
+      .alert { padding: 10px; background-color: #d4edda; color: #155724; border-radius: 4px; margin-bottom: 20px; }
+      .alert-danger { background-color: #f8d7da; color: #721c24; }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <header>
+        <div>
+          <span>ADMIN DASHBOARD</span>
+          <%= link_to "Workshops", admin_workshops_path %>
+          <%= link_to "Users", admin_users_path %>
+        </div>
+        <div>
+          <%= link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete } %>
+        </div>
+      </header>
+
+      <% if notice %>
+        <div class="alert"><%= notice %></div>
+      <% end %>
+      <% if alert %>
+        <div class="alert alert-danger"><%= alert %></div>
+      <% end %>
+
+      <%= yield %>
+    </div>
+  </body>
+</html>

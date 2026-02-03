@@ -1,0 +1,32 @@
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+  <h1>Workshops</h1>
+  <%= link_to "New Workshop", new_admin_workshop_path, class: "btn" %>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Slug (URL)</th>
+      <th>Users</th>
+      <th>Vehicles</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @workshops.each do |workshop| %>
+      <tr>
+        <td><%= workshop.id %></td>
+        <td><%= workshop.name %></td>
+        <td><code>/<%= workshop.slug %></code></td>
+        <td><%= workshop.users.count %></td>
+        <td><%= workshop.vehicles.count %></td>
+        <td class="actions">
+          <%= link_to "Edit", edit_admin_workshop_path(workshop), class: "btn" %>
+          <%= link_to "Delete", admin_workshop_path(workshop), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

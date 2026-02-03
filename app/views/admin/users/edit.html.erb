@@ -1,0 +1,45 @@
+<h1><%= @user.new_record? ? "New User" : "Edit User" %></h1>
+
+<%= form_with(model: [:admin, @user], local: true) do |f| %>
+  <% if @user.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :password %>
+    <%= f.password_field :password, placeholder: @user.new_record? ? "" : "Leave blank to keep current password" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :workshop_id, "Workshop" %>
+    <%= f.collection_select :workshop_id, Workshop.all, :id, :name, { include_blank: false }, { style: "padding: 8px; width: 100%;" } %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :system_admin do %>
+      <%= f.check_box :system_admin %> System Administrator?
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit class: "btn" %>
+    <%= link_to "Cancel", admin_users_path, style: "margin-left: 10px;" %>
+  </div>
+<% end %>

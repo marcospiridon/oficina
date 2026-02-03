@@ -1,0 +1,82 @@
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+  <%= link_to t('vehicles.show.back'), workshop_dashboard_path, style: "font-weight: 600; color: var(--text-secondary);" %>
+  <div style="display: flex; gap: 0.5rem;">
+    <%= link_to t('vehicles.show.export_zip'), download_all_workshop_vehicle_path(id: @vehicle.id), class: "btn btn-secondary", style: "width: auto; padding: 0.5rem 1rem; font-size: 0.8rem;" %>
+    <%= button_to t('vehicles.show.delete_vehicle'), workshop_vehicle_path(workshop_slug: @workshop.slug, id: @vehicle.id), method: :delete, onclick: "return confirm('#{t('vehicles.show.confirm_delete')}');", class: "btn", style: "background: #dc3545; color: white; border: none; padding: 0.5rem 1rem; font-size: 0.8rem; width: auto; cursor: pointer;" %>
+  </div>
+</div>
+
+<div class="card" style="text-align: center;">
+  <h1 style="margin: 0; font-size: 2.5rem; letter-spacing: 2px;"><%= @vehicle.license_plate %></h1>
+  <p style="color: var(--text-secondary); margin-top: 0.5rem;">
+    <%= @vehicle.created_at.strftime("%d %b %Y") %>
+  </p>
+</div>
+
+<!-- Upload Section -->
+<div class="card">
+  <h3 style="margin-top: 0;"><%= t('vehicles.show.add_photos_docs') %></h3>
+  <%= form_with(model: @vehicle, url: workshop_vehicle_path(workshop_slug: @workshop.slug, id: @vehicle.id), local: true) do |f| %>
+    <div class="form-group">
+      <label class="btn" style="background: var(--surface-color); color: var(--primary-color); border: 2px dashed var(--primary-color); padding: 2rem;">
+        <span><%= t('vehicles.show.tap_photo') %></span>
+        <%= f.file_field :photos, multiple: true, accept: 'image/*', capture: 'environment', style: "display: none;", onchange: "this.form.submit()" %>
+      </label>
+    </div>
+    <div class="form-group">
+       <label style="text-align: center; display: block; margin-top: 1rem; color: var(--text-secondary); cursor: pointer;">
+          <%= t('vehicles.show.or_upload_docs') %>
+          <%= f.file_field :documents, multiple: true, accept: 'application/pdf', style: "display: none;", onchange: "this.form.submit()" %>
+       </label>
+    </div>
+  <% end %>
+</div>
+
+<!-- Gallery -->
+<%= form_with url: destroy_attachments_workshop_vehicle_path(workshop_slug: @workshop.slug, id: @vehicle.id), method: :delete, local: true do |f| %>
+  <!-- Controls -->
+  <% if @vehicle.photos.attached? || @vehicle.documents.attached? %>
+    <div style="margin-bottom: 1rem;">
+      <%= f.submit t('vehicles.show.delete_selected'), class: "btn", style: "background: #dc3545; color: white; border: none; padding: 0.5rem 1rem; font-size: 0.8rem; cursor: pointer;", onclick: "return confirm('#{t('vehicles.show.confirm_delete_selected')}');" %>
+    </div>
+  <% end %>
+
+  <!-- Gallery -->
+  <% if @vehicle.photos.attached? %>
+    <h3><%= t('vehicles.show.photos') %> (<%= @vehicle.photos.count %>)</h3>
+    <div class="gallery-grid">
+      <% @vehicle.photos.each do |photo| %>
+        <div class="gallery-item" style="position: relative;">
+          <div style="position: absolute; top: 5px; left: 5px; z-index: 10;">
+            <%= check_box_tag "attachment_ids[]", photo.id, false, style: "transform: scale(1.5); cursor: pointer;" %>
+          </div>
+          <a href="<%= url_for(photo) %>" target="_blank">
+            <% if photo.variable? %>
+              <%= image_tag photo.variant(resize_to_limit: [300, 300]) %>
+            <% else %>
+              <%= image_tag photo %>
+            <% end %>
+          </a>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <!-- Documents -->
+  <% if @vehicle.documents.attached? %>
+    <h3 style="margin-top: 2rem;"><%= t('vehicles.show.documents') %> (<%= @vehicle.documents.count %>)</h3>
+    <% @vehicle.documents.each do |doc| %>
+      <div class="card" style="display: flex; align-items: center; gap: 1rem; padding: 1rem;">
+        <div>
+           <%= check_box_tag "attachment_ids[]", doc.id, false, style: "transform: scale(1.5); cursor: pointer;" %>
+        </div>
+        <div style="font-size: 2rem;">📄</div>
+        <div style="flex: 1; overflow: hidden;">
+          <div style="font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><%= doc.filename %></div>
+          <div style="font-size: 0.8rem; color: var(--text-secondary);"><%= (doc.byte_size / 1024.0).round(1) %> KB</div>
+        </div>
+        <%= link_to t('vehicles.show.view'), rails_blob_path(doc, disposition: "preview"), target: "_blank", class: "btn btn-secondary", style: "width: auto; padding: 0.5rem;" %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

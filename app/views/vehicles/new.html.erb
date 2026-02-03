@@ -1,0 +1,35 @@
+<div style="margin-bottom: 1rem;">
+  <%= link_to t('vehicles.new.back'), workshop_dashboard_path, style: "font-weight: 600; color: var(--text-secondary);" %>
+</div>
+
+<div class="card">
+  <h1 style="margin-top: 0;"><%= t('vehicles.new.title') %></h1>
+
+  <%= form_with(model: @vehicle, url: workshop_vehicles_path(workshop_slug: @workshop.slug), local: true) do |f| %>
+    <% if @vehicle.errors.any? %>
+      <div style="color: red; margin-bottom: 1rem;">
+        <ul>
+          <% @vehicle.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.label :license_plate, t('vehicles.new.license_plate') %>
+      <%= f.text_field :license_plate, placeholder: "AA-00-00", style: "text-transform: uppercase; font-size: 1.5rem; letter-spacing: 2px; text-align: center;" %>
+    </div>
+
+    <!-- Option to take photo immediately -->
+    <div class="form-group">
+      <label><%= t('vehicles.new.initial_photo') %></label>
+      <label class="btn" style="background: var(--surface-color); color: var(--text-primary); border: 1px solid var(--border-color); margin-top: 0.5rem;">
+        <span><%= t('vehicles.new.take_photo') %></span>
+        <%= f.file_field :photos, multiple: true, accept: 'image/*', capture: 'environment', style: "display: none;" %>
+      </label>
+    </div>
+
+    <%= f.submit t('vehicles.new.create'), class: "btn" %>
+  <% end %>
+</div>

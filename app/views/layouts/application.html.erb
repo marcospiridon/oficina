@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Oficina - Workshop App</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <!-- Google Fonts for Premium Feel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="app-container">
+      <% if current_user %>
+        <nav class="navbar">
+          <div class="nav-brand">
+            <% if current_workshop %>
+              <%= link_to current_workshop.name, workshop_dashboard_path(workshop_slug: current_workshop.slug) %>
+            <% else %>
+              <%= t('layout.app_name') %>
+            <% end %>
+          </div>
+          <div class="nav-actions">
+            <%= link_to t('layout.logout'), destroy_user_session_path, data: { turbo_method: :delete }, class: "nav-link" %>
+          </div>
+        </nav>
+      <% end %>
+
+      <main class="content">
+        <% if notice %>
+          <div class="flash flash-notice"><%= notice %></div>
+        <% end %>
+        <% if alert %>
+          <div class="flash flash-alert"><%= alert %></div>
+        <% end %>
+
+        <%= yield %>
+      </main>
+    </div>
+  </body>
+</html>
