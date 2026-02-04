@@ -50,7 +50,7 @@
           <div style="position: absolute; top: 5px; left: 5px; z-index: 10;">
             <%= check_box_tag "attachment_ids[]", photo.id, false, style: "transform: scale(1.5); cursor: pointer;" %>
           </div>
-          <a href="<%= url_for(photo) %>" target="_blank">
+          <a href="#" onclick="openModal('<%= url_for(photo) %>'); return false;">
             <% if photo.variable? %>
               <%= image_tag photo.variant(resize_to_limit: [300, 300]) %>
             <% else %>
@@ -80,3 +80,32 @@
     <% end %>
   <% end %>
 <% end %>
+
+<!-- Image Preview Modal -->
+<div id="imageModal" class="modal" onclick="closeModal()">
+  <span class="close-btn">&times;</span>
+  <img class="modal-content" id="modalImg">
+</div>
+
+<script>
+  function openModal(src) {
+    const modal = document.getElementById("imageModal");
+    const modalImg = document.getElementById("modalImg");
+    modal.style.display = "flex";
+    modalImg.src = src;
+    document.body.style.overflow = "hidden"; // Prevent scrolling
+  }
+
+  function closeModal() {
+    const modal = document.getElementById("imageModal");
+    modal.style.display = "none";
+    document.body.style.overflow = "auto";
+  }
+
+  // Close with Esc key
+  document.addEventListener('keydown', function(event) {
+    if (event.key === "Escape") {
+      closeModal();
+    }
+  });
+</script>
