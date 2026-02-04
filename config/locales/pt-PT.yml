@@ -174,7 +174,7 @@ pt-PT:
       delete_vehicle: "Apagar Veículo"
       confirm_delete: "Tem a certeza que deseja apagar este veículo?"
       add_photos_docs: "Adicionar Fotos e Documentos"
-      tap_photo: "📷 Toque para Tirar Foto / Upload"
+      tap_photo: "📷 Toque para carregar fotos"
       or_upload_docs: "Ou carregar documentos (PDF)"
       delete_selected: "Apagar Selecionados"
       confirm_delete_selected: "Tem a certeza que deseja apagar os itens selecionados?"
