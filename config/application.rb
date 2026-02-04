@@ -11,8 +11,8 @@ module Oficina
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.1
 
-    # Use MiniMagick for image processing (since ImageMagick is installed)
-    config.active_storage.variant_processor = :mini_magick
+    # Use VIPS for image processing (more memory efficient than ImageMagick)
+    config.active_storage.variant_processor = :vips
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
